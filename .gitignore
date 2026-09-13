@@ -2,6 +2,7 @@
 /data/
 /.venv/
 /venv/
+/.vscode/
 /models/
 /checkpoints/
 /outputs/
