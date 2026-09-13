@@ -63,6 +63,16 @@ python src/run_basic.py --final-k-raw 4 --final-k-hsv 5 --final-k-hog 5
 - `representatives.png` / `representatives.csv`：每簇最接近中心的 3 个代表样本。
 - `cluster_composition.csv`：真实类别组成，仅用于聚类后的辅助解释。
 
+### 3. 全部 k 的二维图与簇组成统计
+
+已有扫描结果后，在 `general` 环境执行：
+
+```bash
+python src/visualize_k_scan.py --results-dir results/n3000
+```
+
+复用原实现和样本清单，重新拟合各 k 并核对 SSE，为每种表示补充 `pca2_all_k.png`（k=2～12 共 11 个子图）和 `all_k_cluster_composition.csv`（各簇样本数、占比、五类数量）。同一表示使用固定二维坐标和坐标范围；不同 k 的相同颜色不代表同一个簇。此命令不重写原扫描或最终聚类文件；重复覆盖补充图表前仍按项目规则备份。
+
 ## 目录约定
 
 正式代码放入 `src/`，必要结果表与图放入 `results/`，报告放入 `report/`。原始数据放入本地 `data/`，交付文件覆盖更新前的备份放入本地 `历史版本/`。

@@ -1,0 +1,7 @@
+﻿cluster,rank,sample_id,true_class_id,true_class_name
+0,1,1093,1,automobile
+0,2,363,1,automobile
+0,3,600,0,airplane
+1,1,2760,1,automobile
+1,2,2096,3,cat
+1,3,1543,1,automobile

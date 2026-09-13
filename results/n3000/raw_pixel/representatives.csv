@@ -1,0 +1,7 @@
+﻿cluster,rank,sample_id,true_class_id,true_class_name
+0,1,737,0,airplane
+0,2,806,5,dog
+0,3,55,6,frog
+1,1,434,6,frog
+1,2,516,6,frog
+1,3,1997,6,frog
