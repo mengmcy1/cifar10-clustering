@@ -15,7 +15,7 @@
 
 ## 环境安装
 
-建议在项目根目录创建独立 Python 环境，然后安装依赖：
+本机优先复用 Conda `general` 环境（Python 3.13），先确认解释器和已有依赖，仅补装缺失包。其他机器可参考完整依赖清单：
 
 ```bash
 pip install -r requirements.txt
@@ -72,6 +72,20 @@ python src/visualize_k_scan.py --results-dir results/n3000
 ```
 
 复用原实现和样本清单，重新拟合各 k 并核对 SSE，为每种表示补充 `pca2_all_k.png`（k=2～12 共 11 个子图）和 `all_k_cluster_composition.csv`（各簇样本数、占比、五类数量）。同一表示使用固定二维坐标和坐标范围；不同 k 的相同颜色不代表同一个簇。此命令不重写原扫描或最终聚类文件；重复覆盖补充图表前仍按项目规则备份。
+
+### 4. 嵌套样本量实验
+
+在 `general` 环境、项目根目录依次执行，每条命令使用独立 Python 进程：
+
+```bash
+python src/run_scaling.py --samples-per-class 200
+python src/run_scaling.py --samples-per-class 400
+python src/run_scaling.py --samples-per-class 600
+```
+
+以 `results/n3000/sample_list.csv` 为母集，按母集行顺序每类取前 200/400/600 张，形成 1000⊂2000⊂3000 的嵌套子集。三个规模分别拟合 PCA-50，固定 k=2，不扫描 k、不生成二维图。使用本地 CIFAR-10，不自动下载。
+
+每个 `results/n{N}/` 输出 `scaling_sample_list.csv`（保留母集 sample_id）和 `scaling_metrics.csv`。计时仅覆盖最终一次 `KMeans.fit`，指标计算不计入；内存记录为 10 ms 采样的进程 RSS 峰值增量，受内存复用影响，不能等同算法总内存。`n_iter` 仅为最终保留解的迭代次数，不是 n_init=20 所有初始化的迭代总和。规模实验的资源记录与原先扫描后的 `final_metrics.csv` 分开保留，避免混用测量条件。重复覆盖规模结果表前按项目规则备份。
 
 ## 目录约定
 

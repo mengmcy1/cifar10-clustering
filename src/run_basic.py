@@ -224,8 +224,8 @@ def fit_with_resource_measurement(
     monitor = threading.Thread(target=sample_memory, daemon=True)
     monitor.start()
 
-    start = time.perf_counter()
     model = make_kmeans(k)
+    start = time.perf_counter()
     model.fit(x50)
     elapsed = time.perf_counter() - start
 
